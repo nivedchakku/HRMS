@@ -1,0 +1,43 @@
+﻿@using HRMS.Entity.Models;
+
+@{
+    Layout="_EmptyLayout";
+}
+
+@model Department
+
+
+
+
+<div class="card">
+    <div class="card-header">
+        <b>Rename Department</b>
+    </div>
+    <div class="card-body">
+        <div class="col-md-8">
+            <form asp-action="EditDepartment" method="POST">
+                <div class="row">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="form-group">
+                        <input type="hidden" asp-for="deptid" class="form-control" />
+                        <label asp-for="deptname" class="control-label"></label>
+                        <input asp-for="deptname" class="form-control" />
+                        <span asp-validation-for="deptname" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <input type="submit" value="Update" class="btn btn-outline-primary" />
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+</div>
+
+
+
+
+@section scripts
+    {
+    @await Html.PartialAsync("_ValidationScriptsPartial")
+    }

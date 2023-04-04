@@ -1,0 +1,115 @@
+﻿@using HRMS.Entity.Models;
+@model IEnumerable<Training>
+@{
+    ViewData["Title"] = "ViewLeave";
+    Layout = "_MenuLayout";
+}
+
+<link href="~/css/site.css" rel="stylesheet" />
+
+<div class="d-flex justify-content-around">
+    <div class="card col-12 mt-lg-5">
+        <div class="card-body">
+            <div class="card-header">
+                <h3>Available Trainings</h3>
+            </div>
+
+            <table class="hover stripe" id="myTable">
+                <thead>
+                    <tr>
+                        <th>@Html.DisplayNameFor(l => l.trainingname)</th>
+                        <th>@Html.DisplayNameFor(l => l.description)</th>
+
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@Html.DisplayFor(emp => item.trainingname)</td>
+                            <td>@Html.DisplayFor(emp => item.description)</td>
+                            <td>
+                                <a class="btn btn-outline-primary btn-sm" onclick="AddEmp(@item.trainingid)"><i class="fa fa-plus"></i><i class="fa fa-user"></i></a>
+                                <a onclick="ViewEmp(@item.trainingid)" class="btn btn-outline-primary btn-sm"><i class="fa fa-users"></i></a>
+                            </td>
+                        </tr>
+
+                    }
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+</div>
+
+
+
+<div id="myModal" class="modal fade" role="dialog">
+    <div class="modal-dialog modal-dialog-scrollable">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id=""></h4>
+                <button type="button" class="close" data-bs-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p>Some text in the modal.</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+
+
+@section scripts{
+
+
+    <script>
+
+        function AddEmp(id) {
+            $('.modal-title').html("Add Employee")
+            $.ajax({
+                "type": "GET",
+                "url": "@Url.Action("AddEmpTraining")",
+                "dataType": "html",
+                "data": { trainingid: id },
+                "success": function (data) {
+                    $('.modal-body').html(data);
+                    $('#myModal').modal('show');
+                },
+                "error": function () {
+                    alert("error in loading model");
+                }
+            });
+        }
+        function ViewEmp(id) {
+            $('.modal-title').html("Trainings")
+            $.ajax({
+                "type": "GET",
+                "url": "@Url.Action("TrainingEmployees")",
+                "dataType": "html",
+                "data": { trainingid: id },
+                "success": function (data) {
+                    $('.modal-body').html(data);
+                    $('#myModal').modal('show');
+                },
+                "error": function () {
+                    alert("error in loading model");
+                }
+            });
+        }
+        $(document).ready(function () {
+            $('#myTable').DataTable();
+
+
+        });
+    </script>
+}

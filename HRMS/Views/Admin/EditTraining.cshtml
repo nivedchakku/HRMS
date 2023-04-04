@@ -1,0 +1,59 @@
+﻿@using HRMS.Entity.Models;
+
+@{
+    Layout = "_EmptyLayout";
+}
+
+@model Training
+
+
+
+
+<div class="card">
+    <div class="card-header">
+        <b>Edit Training</b>
+    </div>
+    <div class="card-body">
+        <div class="col-md-8">
+            <form asp-action="EditTraining" method="POST">
+                <div class="row">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="form-group">
+                        <input type="hidden" asp-for="trainingid" class="form-control" />
+                        <label asp-for="trainingname" class="control-label"></label>
+                        <input asp-for="trainingname" class="form-control" />
+                        <span asp-validation-for="trainingname" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="description" class="control-label"></label>
+                        <input asp-for="description" class="form-control" />
+                        <span asp-validation-for="description" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <br />
+                        <label asp-for="status" class="control-label"></label>
+                        <select asp-for="status" value="@Model.status" class="form-control">
+                            <option>@Model.status</option>
+                            <option value="Active">Active</option>
+                            <option value="InActive">Inactive</option>
+
+                        </select>
+                        <span asp-validation-for="status" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <input type="submit" value="Update" class="btn btn-outline-primary" />
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+</div>
+
+
+
+
+@section scripts
+    {
+    @await Html.PartialAsync("_ValidationScriptsPartial")
+    }

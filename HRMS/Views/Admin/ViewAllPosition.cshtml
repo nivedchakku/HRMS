@@ -1,0 +1,145 @@
+﻿@using HRMS.Entity.Models;
+@model IEnumerable<Position>
+@{
+    Layout = "_MenuLayout";
+}
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+<link href="~/css/site.css" rel="stylesheet" />
+<div class="d-flex justify-content-around">
+    <div class="card col-8 mt-lg-4">
+        <div class="card-body">
+            <div class="card-header">
+                <a class="btn btn-primary" id="add"><i class="fa fa-plus"></i></a>
+            </div>
+
+            <table class="hover stripe" id="myTable">
+                <thead>
+                    <tr>
+                        <th>@Html.DisplayNameFor(dept => dept.positionname)</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+
+            </table>
+
+        </div>
+    </div>
+</div>
+
+
+
+<div id="myModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id=""></h4>
+                <button type="button" class="close" data-bs-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p>Some text in the modal.</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+
+@section scripts{
+
+
+    <script>
+        function LoadModal(id) {
+            $('.modal-title').html("Edit Position")
+            $.ajax({
+                "type": "GET",
+                "url": "@Url.Action("EditPosition")",
+                "dataType": "html",
+                "data": { "id": id },
+                "success": function (data) {
+                    $('.modal-body').html(data);
+                    $('#myModal').modal('show');
+                },
+                "error": function () {
+                    alert("error in loading model");
+                }
+            });
+        }
+
+
+        function LoadDelete(id) {
+            $('.modal-title').html("Delete Position")
+            $.ajax({
+                "type": "GET",
+                "url": "@Url.Action("DeletePosition")",
+                "dataType": "html",
+                "data": { "id": id },
+                "success": function (data) {
+                    $('.modal-body').html(data);
+                    $('#myModal').modal('show');
+                },
+                "error": function () {
+                    alert("error in loading model");
+                }
+            });
+        }
+        $(document).ready(function () {
+
+            $('#myTable').DataTable({
+                "processing": true,
+                "serverSide": false,
+                "filter": true,
+                "searching": false,
+                "ajax": {
+                    "url": "@Url.Action("ViewAllPositionJson","Admin")",
+                    "type": "Get",
+                    "datatype": "json"
+                },
+                "columns": [
+                    { "data": "positionname", "name": "Position Name", "autoWidth": true },
+
+                    {
+                        "render": function (data, type, full, meta) {
+
+                            return '<a onclick=LoadModal("' + full.positionid + '"); class="btn btn-primary edit"  ><i class="fa fa-pencil-square"></i></a>  <a onclick=LoadDelete("' + full.positionid + '"); class="btn btn-danger delete"  ><i class="fa fa-trash"></i></a>';
+
+                        }
+                    },
+                ]
+            });
+
+
+
+            $('#add').click(function () {
+                $('.modal-title').html("Add Position")
+                $.ajax({
+                    "type": "GET",
+                    "url": "@Url.Action("CreatePosition")",
+                    "dataType": "html",
+                    "data": {},
+                    "success": function (data) {
+                        $('.modal-body').html(data);
+                        $('#myModal').modal('show');
+                    },
+                    "error": function () {
+                        alert("error in loading model");
+                    }
+                });
+            });
+
+
+        });
+    </script>
+
+    }

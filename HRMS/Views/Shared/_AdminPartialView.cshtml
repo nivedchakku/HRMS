@@ -1,0 +1,188 @@
+﻿
+@*
+    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
+*@
+
+
+<ul class="pcoded-item pcoded-left-item">
+    <li class="active">
+        <a asp-action="Index" asp-controller="User" class="waves-effect waves-dark">
+            <span class="pcoded-micon"><i class="ti-home"></i><b>D</b></span>
+            <span class="pcoded-mtext">Dashboard</span>
+            <span class="pcoded-mcaret"></span>
+        </a>
+    </li>
+</ul>
+<ul class="pcoded-item pcoded-left-item">
+    <li class="pcoded-hasmenu">
+        <a href="javascript:void(0)" class="waves-effect waves-dark">
+            <span class="pcoded-micon"><i class="fa fa-people-roof"></i><b>BC</b></span>
+            <span class="pcoded-mtext">Manage Employee</span>
+            <span class="pcoded-mcaret"></span>
+        </a>
+        <ul class="pcoded-submenu">
+            <li class=" ">
+                <a asp-action="ViewAllEmployee" asp-controller="ManageEmployee" class="waves-effect waves-dark">
+                    <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+                    <span class="pcoded-mtext">View Users</span>
+                    <span class="pcoded-mcaret"></span>
+                </a>
+            </li>
+            <li class="">
+                <a asp-action="Register" asp-controller="Account" class="waves-effect waves-dark">
+                    <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+                    <span class="pcoded-mtext">Add User</span>
+                    <span class="pcoded-mcaret"></span>
+                </a>
+            </li>
+
+
+        </ul>
+    </li>
+</ul>
+
+<ul class="pcoded-item pcoded-left-item">
+    <li class="pcoded-hasmenu">
+        <a href="javascript:void(0)" class="waves-effect waves-dark">
+            <span class="pcoded-micon"><i class="fa fa-pen-ruler"></i><b>BC</b></span>
+            <span class="pcoded-mtext">Manage Roles</span>
+            <span class="pcoded-mcaret"></span>
+        </a>
+        <ul class="pcoded-submenu">
+            <li class="">
+                <a asp-action="ViewRoles" asp-controller="Administrative" class="waves-effect waves-dark">
+                    <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+                    <span class="pcoded-mtext">View Roles</span>
+                    <span class="pcoded-mcaret"></span>
+                </a>
+            </li>
+            <li class="">
+                <a asp-action="CreateRole" asp-controller="Administrative" class="waves-effect waves-dark">
+                    <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+                    <span class="pcoded-mtext">Add Role</span>
+                    <span class="pcoded-mcaret"></span>
+                </a>
+            </li>
+            <li class=" ">
+                <a asp-action="ViewUsers" asp-controller="Account" class="waves-effect waves-dark">
+                    <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+                    <span class="pcoded-mtext">Manage Roles</span>
+                    <span class="pcoded-mcaret"></span>
+                </a>
+            </li>
+
+
+        </ul>
+    </li>
+</ul>
+
+
+<ul class="pcoded-item pcoded-left-item">
+    <li class="pcoded-hasmenu">
+        <a href="javascript:void(0)" class="waves-effect waves-dark">
+            <span class="pcoded-micon"><i class="fa fa-door-closed"></i><b>BC</b></span>
+            <span class="pcoded-mtext">Manage Leaves</span>
+            <span class="pcoded-mcaret"></span>
+        </a>
+        <ul class="pcoded-submenu">
+            <li class="">
+                <a asp-action="LeaveRequests" asp-controller="HR" class="waves-effect waves-dark">
+                    <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+                    <span class="pcoded-mtext">New Requests</span>
+                    <span class="pcoded-mcaret"></span>
+                </a>
+            </li>
+            <li class="">
+                <a asp-action="AllLeave" asp-controller="HR" class="waves-effect waves-dark">
+                    <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+                    <span class="pcoded-mtext">History</span>
+                    <span class="pcoded-mcaret"></span>
+                </a>
+            </li>
+
+        </ul>
+    </li>
+</ul>
+
+<ul class="pcoded-item pcoded-left-item">
+    <li class="pcoded-hasmenu">
+        <a href="javascript:void(0)" class="waves-effect waves-dark">
+            <span class="pcoded-micon"><i class="fa fa-bell-concierge"></i><b>BC</b></span>
+            <span class="pcoded-mtext">Services</span>
+            <span class="pcoded-mcaret"></span>
+        </a>
+        <ul class="pcoded-submenu">
+            <li class=" ">
+                <a asp-action="ViewAllDepartment" asp-controller="Admin" class="waves-effect waves-dark">
+                    <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+                    <span class="pcoded-mtext">Departments</span>
+                    <span class="pcoded-mcaret"></span>
+                </a>
+            </li>
+            <li class="">
+                <a asp-action="ViewAllPosition" asp-controller="Admin" class="waves-effect waves-dark">
+                    <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+                    <span class="pcoded-mtext">Positions</span>
+                    <span class="pcoded-mcaret"></span>
+                </a>
+            </li>
+            <li class="">
+                <a asp-action="ViewAllSalary" asp-controller="Admin" class="waves-effect waves-dark">
+                    <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+                    <span class="pcoded-mtext">Salary</span>
+                    <span class="pcoded-mcaret"></span>
+                </a>
+            </li>
+            <li class=" ">
+                <a asp-action="ViewAllProject" asp-controller="Admin" class="waves-effect waves-dark">
+                    <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+                    <span class="pcoded-mtext">Projects</span>
+                    <span class="pcoded-mcaret"></span>
+                </a>
+            </li>
+            <li class=" ">
+                <a asp-action="ViewAllTraining" asp-controller="Admin" class="waves-effect waves-dark">
+                    <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+                    <span class="pcoded-mtext">Trainings</span>
+                    <span class="pcoded-mcaret"></span>
+                </a>
+            </li>
+            <li class=" ">
+                <a asp-action="ViewAllLeave" asp-controller="Admin" class="waves-effect waves-dark">
+                    <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+                    <span class="pcoded-mtext">Leaves</span>
+                    <span class="pcoded-mcaret"></span>
+                </a>
+            </li>
+
+
+        </ul>
+    </li>
+</ul>
+<ul class="pcoded-item pcoded-left-item">
+    <li class="">
+        <a asp-action="TrainingDetails" asp-controller="HR" class="waves-effect waves-dark">
+            <span class="pcoded-micon"><i class="fa fa-line-chart"></i><b>M</b></span>
+            <span class="pcoded-mtext">Manage Training</span>
+            <span class="pcoded-mcaret"></span>
+        </a>
+    </li>
+</ul><ul class="pcoded-item pcoded-left-item">
+    <li class="">
+        <a asp-action="ProjectDetails" asp-controller="HR" class="waves-effect waves-dark">
+            <span class="pcoded-micon"><i class="fa fa-rectangle-list"></i><b>M</b></span>
+            <span class="pcoded-mtext">Manage Projects</span>
+            <span class="pcoded-mcaret"></span>
+        </a>
+    </li>
+</ul>
+
+<ul class="pcoded-item pcoded-left-item">
+    <li class="">
+        <a asp-action="LogOut" asp-controller="Account" class="waves-effect waves-dark">
+            <span class="pcoded-micon"><i class="fa fa-power-off"></i><b>M</b></span>
+            <span class="pcoded-mtext">LogOut</span>
+            <span class="pcoded-mcaret"></span>
+        </a>
+    </li>
+</ul>

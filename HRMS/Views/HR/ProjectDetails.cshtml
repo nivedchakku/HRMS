@@ -1,0 +1,123 @@
+﻿@using HRMS.Entity.Models;
+@model IEnumerable<Project>
+@{
+    ViewData["Title"] = "ViewLeave";
+    Layout = "_MenuLayout";
+}
+
+<link href="~/css/site.css" rel="stylesheet" />
+
+<div class="d-flex justify-content-around">
+    <div class="card col-12 mt-lg-5">
+        <div class="card-body">
+            <div class="card-header">
+                <h3>Available Projects</h3>
+            </div>
+
+            <table class="hover stripe" id="myTable">
+                <thead>
+                    <tr >
+                        <th>@Html.DisplayNameFor(l => l.projectname)</th>
+                        <th>@Html.DisplayNameFor(l => l.status)</th>
+                        <th>@Html.DisplayNameFor(l => l.startdate)</th>
+                        <th>@Html.DisplayNameFor(l => l.enddate)</th>
+
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            @{
+                        var startdate = String.Format("{0:MM/dd/yyyy}", item.startdate);
+                        var enddate = String.Format("{0:MM/dd/yyyy}", item.enddate);
+                        }
+                            <td>@Html.DisplayFor(emp => item.projectname)</td>
+                            <td>@Html.DisplayFor(emp => item.status)</td>
+                            <td>@Html.DisplayFor(emp => startdate)</td>
+                            <td>@Html.DisplayFor(emp => enddate)</td>
+                            <td>
+                                <a class="btn btn-outline-primary btn-sm" onclick="AddEmp(@item.projectid)"><i class="fa fa-plus"></i><i class="fa fa-user"></i></a>
+                                <a onclick="ViewEmp(@item.projectid)" class="btn btn-outline-primary btn-sm"><i class="fa fa-users"></i></a>
+                            </td>
+                        </tr>
+
+                    }
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+</div>
+
+
+
+<div id="myModal" class="modal fade" role="dialog">
+    <div class="modal-dialog modal-dialog-scrollable">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id=""></h4>
+                <button type="button" class="close" data-bs-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p>Some text in the modal.</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+
+
+@section scripts{
+
+
+    <script>
+
+        function AddEmp(id) {
+            $('.modal-title').html("Add Employee")
+            $.ajax({
+                "type": "GET",
+                "url": "@Url.Action("AddEmpProject")",
+                "dataType": "html",
+                "data": { projectid: id },
+                "success": function (data) {
+                    $('.modal-body').html(data);
+                    $('#myModal').modal('show');
+                },
+                "error": function () {
+                    alert("error in loading model");
+                }
+            });
+        }
+        function ViewEmp(id) {
+            $('.modal-title').html("Projects")
+            $.ajax({
+                "type": "GET",
+                "url": "@Url.Action("ProjectEmployees")",
+                "dataType": "html",
+                "data": { projectid: id },
+                "success": function (data) {
+                    $('.modal-body').html(data);
+                    $('#myModal').modal('show');
+                },
+                "error": function () {
+                    alert("error in loading model");
+                }
+            });
+        }
+        $(document).ready(function () {
+            $('#myTable').DataTable();
+
+
+        });
+    </script>
+}

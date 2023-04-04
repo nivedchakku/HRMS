@@ -1,0 +1,19 @@
+﻿@using HRMS.Entity.Models;
+@model Department
+@{
+    Layout = "_EmptyLayout";
+}
+<div class="row">
+    <div>
+        <h4>You Want To Delete @Model.deptname?</h4>
+    </div>
+    <div>
+        <form asp-action="DeleteDepartment" method="post">
+            <input type="hidden" asp-for="deptid" value="@Model.deptid" />
+            <input type="submit" value="Delete" class="btn btn-danger" />
+
+        </form>
+    </div>
+
+</div>
+

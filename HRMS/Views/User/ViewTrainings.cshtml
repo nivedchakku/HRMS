@@ -1,0 +1,61 @@
+﻿@{
+    Layout = "_MenuLayout";
+}
+
+@using HRMS.Entity.Models;
+@model IEnumerable<TrainingAllocation>
+
+
+<link href="~/css/site.css" rel="stylesheet" />
+
+<div class="d-flex justify-content-around">
+    <div class="card col-12 mt-lg-5">
+        <div class="card-body">
+            <div class="card-header">
+                <h3>Your Projects</h3>
+            </div>
+
+            <table class="hover stripe" id="myTable">
+                <thead>
+                    <tr>
+                        <th>@Html.DisplayNameFor(l => l.training.trainingname)</th>
+                        <th>@Html.DisplayNameFor(l => l.training.description)</th>
+                        <th>@Html.DisplayNameFor(l => l.date)</th>
+                        <th>@Html.DisplayNameFor(l => l.status)</th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@Html.DisplayFor(emp => item.training.trainingname)</td>
+                            <td>@Html.DisplayFor(emp => item.training.description)</td>
+                            <td>@Html.DisplayFor(emp => item.date)</td>
+                            <td>@Html.DisplayFor(emp => item.status)</td>
+
+                        </tr>
+
+                    }
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+</div>
+
+
+
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+
+
+@section scripts{
+
+
+    <script>
+
+        $(document).ready(function () {
+            $('#myTable').DataTable();
+        });
+    </script>
+}

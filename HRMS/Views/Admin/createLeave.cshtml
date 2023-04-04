@@ -1,0 +1,43 @@
+﻿@using HRMS.Entity.Models;
+@model Leave
+@{
+    Layout = "_EmptyLayout";
+}
+
+<div class="card">
+    <div class="card-header">
+        <b>Add New Project</b>
+    </div>
+    <div class="card-body">
+        <div class="col-md-10">
+            <form asp-action="CreateLeave" method="POST">
+                <div class="row">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="form-group">
+                        <label asp-for="leavename" class="control-label"></label>
+                        <input asp-for="leavename" class="form-control" />
+                        <span asp-validation-for="leavename" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="days" class="control-label"></label>
+                        <input asp-for="days" class="form-control" />
+                        <span asp-validation-for="days" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+
+                        <input type="submit" value="Add" class="btn btn-outline-primary" />
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+</div>
+
+
+
+
+@section scripts
+    {
+    @await Html.PartialAsync("_ValidationScriptsPartial")
+    }

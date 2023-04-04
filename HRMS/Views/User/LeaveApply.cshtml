@@ -1,0 +1,135 @@
+﻿@{
+    ViewData["Title"] = "LeaveApply";
+    Layout = "_MenuLayout";
+}
+
+@using HRMS.Entity.Models;
+@using System.Security.Claims;
+@model LeaveApp
+
+
+
+
+<div class="row justify-content-center align-items-center text-center">
+
+    <div class="card col-8">
+        <div class="card-header">
+            <b>Application For Leave</b>
+        </div>
+        <div class="card-body ">
+            <div class="">
+                @{
+                    var id = User.FindFirstValue(ClaimTypes.NameIdentifier);
+                }
+                <form asp-action="LeaveApply" method="POST">
+                    <input type="hidden" asp-for="employeeid" value="@id" class="form-control" />
+                    <div class="row">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+
+                        <div class="d-flex justify-content-between">
+                            <div class="col-5">
+                                <label asp-for="startdate" class="control-label"></label>
+                                <input asp-for="startdate" type="date" class="form-control" id="date1" />
+                                <span asp-validation-for="startdate" class="text-danger"></span>
+                            </div>
+                            <div class="col-5">
+                                <label asp-for="enddate" class="control-label"></label>
+                                <input asp-for="enddate" type="date" class="form-control" id="date2" />
+                                <span asp-validation-for="enddate" class="text-danger"></span>
+                            </div>
+                        </div><br /><br /><br /><br />
+                        <div class="d-flex justify-content-between">
+                            <div class="col-5">
+                                <div>
+                                    <label asp-for="leaveid" class="control-label"></label>
+                                    <select asp-for="leaveid" class="form-select" id="Leave">
+                                        <option value=" ">Leave Type</option>
+                                        @foreach (var leave in ViewBag.Leave)
+                                        {
+                                            <option value="@leave.leaveid">@leave.leavename</option>
+                                        }
+                                    </select><br />
+                                </div>
+                                <div class="form-group">
+                                    <label asp-for="leavedays" class="control-label"></label>
+                                    <input asp-for="leavedays" class="form-control" id="days" />
+                                    <span asp-validation-for="leavedays" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="form-group col-5">
+                                <label asp-for="description" class="control-label"></label>
+                                <textarea asp-for="description" class="form-control"></textarea>
+                                <span asp-validation-for="description" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <input type="hidden" asp-for="status" value="Pending" />
+                            <input type="submit" value="Request" class="btn btn-outline-primary" />
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+
+@section scripts
+    {
+
+
+
+    <script>
+        //$(function () {
+        //    $("#date1").datepicker({
+        //        changeMonth: true,
+        //        changeYear: true
+
+        //    });
+        //    $("#date2").datepicker({
+        //        changeMonth: true,
+        //        changeYear: true
+
+        //    });
+        //});
+        $(document).ready(function () {
+
+            $('#Leave').select2({
+                theme: "bootstrap4",
+                placeholder: "Name",
+                allowClear: true
+            });
+
+
+            $("#date2").change(function () {
+                var sd = new Date($("#date1").val()).toISOString().substring(0, 10);
+                var ed = new Date($("#date2").val()).toISOString().substring(0, 10);
+                var sd = new Date(sd);
+                var ed = new Date(ed);
+                const oneDay = 1000 * 60 * 60 * 24;
+                var timedif = ed.getTime() - sd.getTime();
+                const diffInDays = Math.round(timedif / oneDay);
+                console.log(diffInDays);
+                $("#days").val(diffInDays+1);
+            });
+            $("#date1").change(function () {
+                var sd = new Date($("#date1").val()).toISOString().substring(0, 10);
+                $("#date2").attr({ min: sd })
+            });
+
+
+            //$('#date2').blur(function () {
+            //    var date1 = $('#date1').val();
+            //    var date2 = Date($('#date2').val());
+            //    var diffDays = date2.getDate() - date1.getDate();
+            //    console.log(date1);
+            //    $('#days').val(diffDays);
+            //});
+        });
+    </script>
+    @await Html.PartialAsync("_ValidationScriptsPartial")
+    }
+

@@ -1,0 +1,45 @@
+﻿@{
+    Layout = "_MenuLayout";
+}
+
+@model CreateRoleViewModel
+
+@{
+    ViewData["Title"] = "CreateRole";
+}
+
+
+
+<div class="card">
+    <div class="card-header">
+        <b>Add New Role</b>
+    </div>
+    <div class="card-body">
+        <div class="col-md-4">
+            <form asp-action="CreateRole" method="POST">
+                <div class="row">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="form-group">
+                        <label asp-for="Name" class="control-label"></label>
+                        <input asp-for="Name" class="form-control" />
+                        <span asp-validation-for="Name" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <input type="submit" value="Add" class="btn btn-primary" />
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="card-footer">
+        <a asp-action="ViewRoles" class="btn btn-outline-primary">View Roles</a>
+    </div>
+</div>
+
+
+
+
+@section scripts
+    {
+    @await Html.PartialAsync("_ValidationScriptsPartial");
+    }

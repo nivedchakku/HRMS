@@ -1,0 +1,38 @@
+﻿@using HRMS.Entity.Models;
+@model Position
+@{
+    Layout = "_EmptyLayout";
+}
+
+<div class="card">
+    <div class="card-header">
+        <b>Add Position</b>
+    </div>
+    <div class="card-body">
+        <div class="col-md-10">
+            <form asp-action="CreatePosition" method="POST">
+                <div class="row">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="form-group">
+                        <label asp-for="positionname" class="control-label"></label>
+                        <input asp-for="positionname" class="form-control" />
+                        <span asp-validation-for="positionname" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+
+                        <input type="submit" value="Add" class="btn btn-outline-primary" />
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+</div>
+
+
+
+
+@section scripts
+    {
+    @await Html.PartialAsync("_ValidationScriptsPartial")
+    }

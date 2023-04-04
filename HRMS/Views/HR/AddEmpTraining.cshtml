@@ -1,0 +1,60 @@
+﻿@using HRMS.Entity.Models;
+
+@{
+    Layout = "_EmptyLayout";
+}
+
+@model TrainingAllocation
+
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+<link href="https://raw.githack.com/ttskch/select2-bootstrap4-theme/master/dist/select2-bootstrap4.css" rel="stylesheet">
+
+
+<div class="card">
+    <div class="card-header">
+        <b>Add Employee</b>
+    </div>
+    <div class="card-body">
+        <div class="">
+            <form asp-action="AddEmpTraining" method="POST">
+                <input type="hidden" asp-for="trainingid" />
+                <input type="hidden" asp-for="status" value="OnGoing" />
+                <div class="row">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="form-group">
+                        <select asp-for="employeeid" class="form-select" id="emp">
+                            <option value="-1">---Select Employee---</option>
+                            @foreach (var emp in ViewBag.emp)
+                            {
+                                    <option value="@emp.employeeid">@emp.firstname @emp.lastname</option>
+                            }
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <input type="submit" value="Add" class="btn btn-outline-primary" />
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+</div>
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/select2@4.0.12/dist/js/select2.min.js"></script>
+@section scripts
+    {
+    @await Html.PartialAsync("_ValidationScriptsPartial")
+
+        <script>
+            $(document).ready({
+
+                $('#emp').select2({
+                    theme: "bootstrap4",
+                    placeholder: "Name",
+                    allowClear: true
+                });
+            });
+        </script>
+    }

@@ -1,0 +1,45 @@
+﻿    @{
+    Layout = "_MenuLayout";
+}
+
+@model UserRollViewModel
+<div class="d-flex justify-content-around">
+<div class="card col-6 mt-lg-5">
+    <div class="card-header">
+        <div class="d-flex">
+            <div class="form-control col-4">@Model.UserName</div>
+        </div>
+    </div>
+    <div class="card-body">
+        <form asp-action="AddRemoveRoles" method="post">
+            <input type="hidden" asp-for="@Model.Id">
+
+            <table class="table table-bordered table-striped ">
+                <tr>
+
+                    <th>@Html.DisplayNameFor(model => model.addRemoveRolesViewModel.First().RollName)</th>
+                    <th></th>
+                </tr>
+                @for (int i = 0; i < Model.addRemoveRolesViewModel.Count(); i++)
+                {
+                    <tr>
+
+                        <td>
+                            <input type="hidden" asp-for="@Model.addRemoveRolesViewModel[i].RollId">
+                            @Html.DisplayFor(modelitem => Model.addRemoveRolesViewModel[i].RollName)
+                            <input type="hidden" asp-for="@Model.addRemoveRolesViewModel[i].RollName">
+
+                        </td>
+                        <td>
+                            <input type="checkbox" asp-for="@Model.addRemoveRolesViewModel[i].IsSelected" />
+                        </td>
+
+                    </tr>
+                }
+            </table>
+            <input type="Submit" value="Update Role" class="btn btn-outline-primary" />
+        </form>
+
+    </div>
+</div>
+</div>

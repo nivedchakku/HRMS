@@ -1,0 +1,84 @@
+﻿@model LoginViewModel
+
+@{
+    Layout = "_EmptyLayout";
+}
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.min.css" rel="stylesheet" />
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css" rel="stylesheet" />
+
+
+
+<div class="container" style="margin-top:100px;">
+    <div class="row justify-content-center align-items-center text-center p-2">
+        <div class="m-1 col-sm-8 col-md-6 col-lg-4 shadow-sm p-3 mb-5 bg-white border rounded">
+            <div class="pt-5 pb-5">
+                <img class="rounded mx-auto d-block" src="~/Images/loginimage.png" alt="" width=70px height=70px>
+                <p class="text-center text-uppercase mt-3">Login</p>
+                <form class="form text-center" action="#" method="POST">
+                    <div class="form-group input-group-md">
+                        <input asp-for="Email" class="form-control" id="email" aria-describedby="emailHelp" placeholder="User Name">
+                        <span asp-validation-for="Email" class="text-danger"></span>
+
+                    </div>
+                    <div class="form-group input-group-md">
+                        <input asp-for="Password" type="password" class="form-control" id="password" placeholder="Password">
+                        <span asp-validation-for="Password" class="text-danger"></span>
+
+                    </div>
+                    <button class="btn btn-lg btn-block btn-primary mt-4" id="submit1" type="submit">
+                        Login
+                    </button>
+
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+@*
+<section class="vh-100" style="background-color:">
+    <div class="container py-5 h-100">
+        <div class="row d-flex justify-content-center align-items-center h-100">
+            <div class="col-12 col-md-8 col-lg-6 col-xl-5">
+                <div class="card shadow-2-strong" style="border-radius: 1rem; background-color: lightgray ">
+                    <div class="card-body p-5 text-center">
+
+                        <h3 class="mb-5">Sign in</h3>
+                        <form asp-action="Login" method="POST">
+
+                            <div class="form-outline mb-4">
+                                <label asp-for="Email" class="form-label" for="typeEmailX-2"></label>
+                                <input asp-for="Email" id="typeEmailX-2" class="form-control form-control-lg" />
+                                <span asp-validation-for="Email" class="text-danger"></span>
+
+                            </div>
+
+                            <div class="form-outline mb-4">
+                                <label asp-for="Password" class="form-label" for="typePasswordX-2"> </label>
+                                <input asp-for="Password" type="password" id="typePasswordX-2" class="form-control form-control-lg" />
+                                <span asp-validation-for="Password" class="text-danger"></span>
+
+                            </div>
+
+
+                            <input class="btn btn-outline-primary btn-lg" type="submit" value="SignIn" />
+                        </form>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>*@
+
+
+@section scripts{
+
+<script>
+        //$(document).ready(function () {
+        //    alert("dfghj")
+        //})
+</script>
+}

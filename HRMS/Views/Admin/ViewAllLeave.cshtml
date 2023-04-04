@@ -1,0 +1,143 @@
+﻿@using HRMS.Entity.Models;
+@model IEnumerable<Leave>
+@{
+    Layout = "_MenuLayout";
+}
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+<link href="~/css/site.css" rel="stylesheet" />
+<div class="d-flex justify-content-around">
+    <div class="card col-8 mt-lg-4">
+        <div class="card-body">
+            <div class="card-header">
+                <a class="btn btn-primary" id="add"><i class="fa fa-plus"></i></a>
+            </div>
+
+            <table class="table table-striped table-bordered" id="myTable">
+                <thead>
+                    <tr>
+                        <th>Sl No</th>
+                        <th>@Html.DisplayNameFor(dept => dept.leavename)</th>
+                        <th>@Html.DisplayNameFor(dept => dept.days)</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+
+            </table>
+
+        </div>
+    </div>
+</div>
+
+
+
+<div id="myModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id=""></h4>
+                <button type="button" class="close" data-bs-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p>Some text in the modal.</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+
+@section scripts{
+
+
+    <script>
+        function LoadModal(id) {
+            $('.modal-title').html("Edit Leave")
+            $.ajax({
+                "type": "GET",
+                "url": "@Url.Action("EditLeave")",
+                "dataType": "html",
+                "data": { "id": id },
+                "success": function (data) {
+                    $('.modal-body').html(data);
+                    $('#myModal').modal('show');
+                },
+                "error": function () {
+                    alert("error in loading model");
+                }
+            });
+        }
+        $(document).ready(function () {
+            var i = 1;
+            $('#myTable').DataTable({
+                "processing": true,
+                "serverSide": false,
+                "filter": true,
+                "searching": false,
+                "paging":false,
+                "bInfo":false,
+                "ajax": {
+                    "url": "@Url.Action("ViewAllLeaveJson","Admin")",
+                    "type": "Get",
+                    "datatype": "json"
+                },
+
+                "columnDefs": [{
+                    "targets": [0],
+
+                    'render': function (data, type, full, meta) {
+                        return i++;
+                    }
+                }],
+                "columns": [
+                    { "data": "", "name": "Sl No", "autoWidth": true },
+
+                    { "data": "leavename", "name": "Leave Category", "autoWidth": true },
+                    { "data": "days", "name": "Available Leave Days", "autoWidth": true },
+
+                    {
+                        "render": function (data, type, full, meta) {
+
+                            return '<a onclick=LoadModal("' + full.leaveid + '"); class="btn btn-primary edit"  ><i class="fa fa-pencil-square"></i></a>';
+
+                        }
+                    },
+
+                ]
+            });
+
+
+
+            $('#add').click(function () {
+                $('.modal-title').html("Add New Leave")
+                $.ajax({
+                    "type": "GET",
+                    "url": "@Url.Action("CreateLeave")",
+                    "dataType": "html",
+                    "data": {},
+                    "success": function (data) {
+                        $('.modal-body').html(data);
+                        $('#myModal').modal('show');
+                    },
+                    "error": function () {
+                        alert("error in loading model");
+                    }
+                });
+            });
+
+
+        });
+    </script>
+
+    }

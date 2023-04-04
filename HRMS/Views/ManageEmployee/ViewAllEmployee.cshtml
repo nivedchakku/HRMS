@@ -1,0 +1,236 @@
+﻿@using HRMS.Entity.Models;
+@model IEnumerable<EmployeeViewModel>
+@{
+    Layout = "_MenuLayout";
+}
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+<link href="https://raw.githack.com/ttskch/select2-bootstrap4-theme/master/dist/select2-bootstrap4.css" rel="stylesheet">
+<link href="~/css/site.css" rel="stylesheet" />
+
+
+<form asp-action="ViewAllEmployee" method="get">
+        <div class="pb-3">
+            <div class="card p-4">
+                <div class="row">
+
+                    <div class="col-sm-3">
+                    <select name="empid" class="form-control select" placeholder="">
+                            <option value="">Employee</option>
+                        @foreach (var emp in ViewBag.emp)
+                        {
+                            <option value="@emp.employeeid">@emp.firstname</option>
+                        }
+                        </select>
+                    </div>
+                <div class="col-sm-3">
+                    <select name="deptid" class="form-control select">
+                        <option value="">Department</option>
+                        @foreach (var dept in ViewBag.dept)
+                        {
+                            <option value="@dept.deptid">@dept.deptname</option>
+                        }
+                    </select>
+                </div>
+                    <div class="col-sm-3">
+                    <select name="posid" class="form-control select">
+                            <option value="">Position</option>
+                        @foreach (var pos in ViewBag.pos)
+                        {
+                            <option value="@pos.positionid">@pos.positionname</option>
+                        }
+                        </select>
+                    </div>
+                    <div class="col-sm-3">
+                        <input type="Submit" value="Search" class="btn btn-outline-primary" />
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </form>
+
+
+
+
+<div class="d-flex justify-content-around">
+    <div class="card col-12">
+        <div class="card-body">
+            <div class="card-header">
+                <a asp-action="Register" asp-controller="Account" class="btn btn-primary"><i class="fa fa-plus"></i></a>
+            </div>
+
+            <table class="hover stripe" id="myTable">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>@Html.DisplayNameFor(emp => emp.image)</th>
+                        <th>@Html.DisplayNameFor(emp => emp.email)</th>
+                        <th>@Html.DisplayNameFor(emp => emp.mobile)</th>
+                        <th>@Html.DisplayNameFor(emp => emp.gender)</th>
+                        <th>@Html.DisplayNameFor(emp => emp.departmentname)</th>
+                        <th>@Html.DisplayNameFor(emp => emp.positionname)</th>
+                        <td>@Html.DisplayNameFor(emp => emp.salary.salary)</td>
+
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@Html.DisplayFor(emp => item.firstname) @Html.DisplayFor(emp => item.lastname)</td>
+                            <td>
+                                <img src="~/UserImage/@Html.DisplayFor(emp => item.image)" alt="~/UserImage/@Html.DisplayFor(emp => item.image)" style="height:60px;width:60px; border-radius:50%;">
+                            </td>
+                            <td>@Html.DisplayFor(emp => item.email)</td>
+                            <td>@Html.DisplayFor(emp => item.mobile)</td>
+                            <td>@Html.DisplayFor(emp => item.gender)</td>
+                            <td>@Html.DisplayFor(emp => item.departmentname)</td>
+                            <td>@Html.DisplayFor(emp => item.positionname)</td>
+                            <td>@Html.DisplayFor(emp => item.salary.salary)</td>
+                            <td>
+                                <a asp-action="EditEmployeeDetails" asp-route-id="@item.employeeid" class="btn btn-primary btn-sm"><i class="fa fa-pencil-square"></i></a>
+                                @*<a asp-action="Delete" asp-route-id="@item.employeeid" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a>*@
+                                <a asp-action="ViewEmployeeDetails" asp-route-id="@item.employeeid" class="Details btn btn-primary btn-sm"><i class="fa fa-eye"></i></a>
+                            </td>
+                        </tr>
+                       
+                    }
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+</div>
+
+
+
+<div id="myModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id=""></h4>
+                <button type="button" class="close" data-bs-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p>Some text in the modal.</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/select2@4.0.12/dist/js/select2.min.js"></script>
+@section scripts{
+
+
+    <script>
+        $(document).ready(function () {
+            $('.select').select2({
+                theme: "bootstrap4",
+                allowClear: true
+            })
+            $('#myTable').DataTable({
+                "searching": false
+            });
+            //$('#myTable').DataTable({
+            //    "processing": true,
+            //    "serverSide": false,
+            //    "filter": true,
+            //    "searching": false,
+            //    "ajax": {
+            //        "url": "@Url.Action("ViewAllEmployeeJson","ManageEmployee")",
+            //        "type": "Get",
+            //        "datatype": "json"
+            //    },
+
+
+            //    "columns": [
+            //        //{ "data": "firstname", "name": "Name", "autoWidth": true },
+            //        { "data": "email", "name": "EMail", "autoWidth": true },
+            //        //{ "data": "mobile", "name": "Mobile", "autoWidth": true },
+            //        //{ "data": "departmentname", "name": "Department", "autoWidth": true },
+            //        //{ "data": "positionname", "name": "Position", "autoWidth": true },
+
+
+            //        {
+            //            "render": function (data, type, full, meta) {
+
+            //                return '<a onclick=LoadModal("' + full.employeeid + '"); class="btn btn-primary edit"  ><i class="fa fa-pencil-square"></i></a>  <a onclick=LoadDelete("' + full.employeeid + '"); class="btn btn-danger delete"  ><i class="fa fa-trash"></i></a>';
+
+            //            }
+            //        },
+            //    ]
+            //});
+
+
+
+            $('#add').click(function () {
+                $('.modal-title').html("Add Department")
+                $.ajax({
+                    "type": "GET",
+                    "url": "@Url.Action("CreateDepartment")",
+                    "dataType": "html",
+                    "data": {},
+                    "success": function (data) {
+                        $('.modal-body').html(data);
+                        $('#myModal').modal('show');
+                    },
+                    "error": function () {
+                        alert("error in loading model");
+                    }
+                });
+            });
+
+
+        });
+
+        function LoadDelete(id) {
+            $('.modal-title').html("Delete Department")
+
+            $.ajax({
+                "type": "GET",
+                "url": "@Url.Action("DeleteDepartment")",
+                "dataType": "html",
+                "data": { "id": id },
+                "success": function (data) {
+                    $('.modal-body').html(data);
+                    $('#myModal').modal('show');
+                },
+                "error": function () {
+                    alert("error in loading model");
+                }
+            });
+        }
+
+        function LoadModal(id) {
+            $('.modal-title').html("Edit Department")
+
+            $.ajax({
+                "type": "GET",
+                "url": "@Url.Action("EditDepartment")",
+                "dataType": "html",
+                "data": { "id": id },
+                "success": function (data) {
+                    $('.modal-body').html(data);
+                    $('#myModal').modal('show');
+                },
+                "error": function () {
+                    alert("error in loading model");
+                }
+            });
+        }
+    </script>
+
+    }

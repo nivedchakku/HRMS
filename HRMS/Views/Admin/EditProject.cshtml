@@ -1,0 +1,67 @@
+﻿@using HRMS.Entity.Models;
+
+@{
+    Layout = "_EmptyLayout";
+}
+
+@model Project
+
+
+
+
+<div class="card">
+    <div class="card-header">
+        <b>Edit Project</b>
+    </div>
+    <div class="card-body">
+        <div class="col-md-8">
+            <form asp-action="EditProject" method="POST">
+                <div class="row">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="form-group">
+                        <input type="hidden" asp-for="projectid" class="form-control" />
+                        <label asp-for="projectname" class="control-label"></label>
+                        <input asp-for="projectname" class="form-control" />
+                        <span asp-validation-for="projectname" class="text-danger"></span>
+                    </div>
+                    <div class="row">
+                        <div class="col-5">
+                            <label asp-for="startdate" class="control-label"></label>
+                            <input asp-for="startdate" type="date" class="form-control" />
+                            <span asp-validation-for="startdate" class="text-danger"></span>
+                        </div>
+                        <div class="col-5">
+                            <label asp-for="enddate" class="control-label"></label>
+                            <input asp-for="enddate" type="date" class="form-control" />
+                            <span asp-validation-for="enddate" class="text-danger"></span>
+                        </div>
+                    </div><br />
+                    <div class="form-group">
+                        <br />
+                        <label asp-for="status" class="control-label"></label>
+                        <select asp-for="status" value="@Model.status" class="form-control">
+                            <option>@Model.status</option>
+                            <option value="ongoing">ongoing</option>
+                            <option value="Halt">Halt</option>
+                            <option value="Closed">Closed</option>
+                            <option value="Cancelled">Cancelled</option>
+                        </select>
+                        <span asp-validation-for="status" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <input type="submit" value="Update" class="btn btn-outline-primary" />
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+</div>
+
+
+
+
+@section scripts
+    {
+    @await Html.PartialAsync("_ValidationScriptsPartial")
+    }

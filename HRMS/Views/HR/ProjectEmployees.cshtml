@@ -1,0 +1,50 @@
+﻿@using HRMS.Entity.Models;
+@model IEnumerable<ProjectAllocation>
+@{
+    ViewData["Title"] = "ViewLeave";
+    Layout = "_EmptyLayout";
+}
+
+<link href="~/css/site.css" rel="stylesheet" />
+
+
+<div class="d-flex justify-content-around">
+    <div class="card col-12">
+        <div class="card-header">
+            User List
+        </div>
+        <div class="card-body">
+            <table class="table table-hover table-striped" id="myTable">
+                <thead>
+                    <tr>
+                        <th>User Name</th>
+                        <th>@Html.DisplayNameFor(l => l.status)</th>
+
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@Html.DisplayFor(emp => item.firstname) @Html.DisplayFor(emp => item.lastname)</td>
+                            <td>@Html.DisplayFor(emp => item.status)</td>
+                            <td>
+                                @if (item.status == "OnGoing")
+                                {
+                                    <a asp-action="UpdateProjectAllocation" class="btn btn-outline-primary btn-sm" asp-route-allocationid="@item.allocationid"><i class="fa fa-check"></i>Release</a>
+                                }
+                                else
+                                {
+                                    <b>Released</b>
+                                }
+                            </td>
+                        </tr>
+
+                    }
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+</div>

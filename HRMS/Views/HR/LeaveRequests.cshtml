@@ -1,0 +1,79 @@
+﻿@using HRMS.Entity.Models;
+@using System.Security.Claims;
+@model IEnumerable<LeaveApp>
+@{
+    ViewData["Title"] = "ViewLeave";
+    Layout = "_MenuLayout";
+}
+<link href="~/css/site.css" rel="stylesheet" />
+
+
+<div class="d-flex justify-content-around">
+    <div class="card col-12">
+        <div class="card-body">
+            <div class="card-header">
+                New Requests
+            </div>
+
+            <table class="hover stripe" id="myTable">
+                <thead>
+                    <tr>
+                        <th>@Html.DisplayNameFor(l => l.employeename)</th>
+                        <th>@Html.DisplayNameFor(l => l.leavename)</th>
+                        <th>@Html.DisplayNameFor(l => l.startdate)</th>
+                        <th>@Html.DisplayNameFor(l => l.enddate)</th>
+                        <th>@Html.DisplayNameFor(l => l.leavedays)</th>
+                        <th>@Html.DisplayNameFor(l => l.dateapplied)</th>
+                        <th>@Html.DisplayNameFor(l => l.description)</th>
+                        <th>@Html.DisplayNameFor(l => l.status)</th>
+
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        if ( User.FindFirstValue(ClaimTypes.NameIdentifier) == item.employeeid)
+                        {
+                            continue;
+                        }
+                        <tr>
+                            @{
+                                var startdate = String.Format("{0:MM/dd/yyyy}", item.startdate);
+                                var enddate = String.Format("{0:MM/dd/yyyy}", item.enddate);
+                                var dateapplied = String.Format("{0:MM/dd/yyyy}", item.dateapplied);
+                            }
+                            <td>@Html.DisplayFor(emp => item.employeename)</td>
+                            <td>@Html.DisplayFor(emp => item.leavename)</td>
+                            <td>@Html.DisplayFor(emp => startdate)</td>
+                            <td>@Html.DisplayFor(emp => enddate)</td>
+                            <td>@Html.DisplayFor(emp => item.leavedays)</td>
+                            <td>@Html.DisplayFor(emp => dateapplied)</td>
+                            <td>@Html.DisplayFor(emp => item.description)</td>
+                            <td>@Html.DisplayFor(emp => item.status)</td>
+                            <td>
+                                    <a asp-action="UpdateLeaveApprove" asp-route-leaveapplyid="@item.leaveapplyid" class="btn btn-success btn-sm"><i class="fa fa-check"></i></a>
+                                <a asp-action="UpdateLeaveCancel" asp-route-leaveapplyid="@item.leaveapplyid" class="btn btn-danger btn-sm"><i class="fa fa-xmark" style="padding:0px 3px;"></i></a>
+                            </td>
+                        </tr>
+
+                    }
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+</div>
+
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+
+
+@section scripts{
+
+
+    <script>
+        $(document).ready(function () {
+            $('#myTable').DataTable();
+        });
+    </script>
+}
